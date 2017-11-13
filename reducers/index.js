@@ -5,7 +5,7 @@ function entries(state = {}, action) {
     case RECEIVE_ENTRIES:
       return {
         ...state,
-        entries: action.entries
+        ...action.entries
       };
     case ADD_ENTRY:
       return {

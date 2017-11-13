@@ -13,7 +13,7 @@ function setDummyData() {
   let dummyData = {};
   const timestamp = Date.now();
 
-  for (let i = -183; i < 0; i++) {
+  for (let i = -10; i < 0; i++) {
     const time = timestamp + i * 24 * 60 * 60 * 1000;
     const strTime = timeToString(time);
     dummyData[strTime] =
@@ -25,7 +25,13 @@ function setDummyData() {
             sleep: getRandomNumber(sleep.max),
             eat: getRandomNumber(eat.max)
           }
-        : null;
+        : {
+            run: getRandomNumber(run.max),
+            bike: getRandomNumber(bike.max),
+            swim: getRandomNumber(swim.max),
+            sleep: getRandomNumber(sleep.max),
+            eat: getRandomNumber(eat.max)
+          };
   }
 
   AsyncStorage.setItem(CALENDAR_STORAGE_KEY, JSON.stringify(dummyData));
