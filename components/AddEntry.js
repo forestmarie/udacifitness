@@ -11,11 +11,14 @@ import TextButton from "./TextButton";
 import { submitEntry, removeEntry } from "../utils/api";
 import { connect } from "react-redux";
 import { addEntry } from "../actions";
+import { NavigationActions } from "react-navigation";
 
 function SubmitBtn({ onPress }) {
   return (
     <TouchableOpacity
-      style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn } onPress={onPress}>
+      style={Platform.OS === "ios" ? styles.iosSubmitBtn : styles.androidSubmitBtn}
+      onPress={onPress}
+    >
       <Text style={styles.submitBtnText}>SUBMIT</Text>
     </TouchableOpacity>
   );
@@ -78,7 +81,7 @@ class AddEntry extends React.Component {
       eat: 0
     }));
 
-    // Navigate to home
+    this.toHome();
 
     submitEntry({ key, entry });
 
@@ -94,9 +97,17 @@ class AddEntry extends React.Component {
       })
     );
 
-    // Route to home
+    this.toHome();
 
     removeEntry(key);
+  };
+
+  toHome = () => {
+    this.props.navigation.dispatch(
+      NavigationActions.back({
+        key: "AddEntry"
+      })
+    );
   };
 
   render() {
@@ -105,10 +116,11 @@ class AddEntry extends React.Component {
     if (this.props.alreadyLogged) {
       return (
         <View style={styles.center}>
-          <Ionicons
-           name={Platform.OS === "ios" ? "ios-happy-outline" : "md-happy"} size={100} />
+          <Ionicons name={Platform.OS === "ios" ? "ios-happy-outline" : "md-happy"} size={100} />
           <Text>You already logged your information for today.</Text>
-          <TextButton style={{padding: 10}} onPress={this.reset}>reset</TextButton>
+          <TextButton style={{ padding: 10 }} onPress={this.reset}>
+            reset
+          </TextButton>
         </View>
       );
     }
@@ -151,9 +163,9 @@ const styles = StyleSheet.create({
     backgroundColor: white
   },
   row: {
-    flexDirection: 'row',
+    flexDirection: "row",
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center"
   },
   iosSubmitBtn: {
     backgroundColor: purple,
@@ -170,19 +182,19 @@ const styles = StyleSheet.create({
     paddingRight: 30,
     borderRadius: 2,
     height: 45,
-    alignSelf: 'flex-end',
-    justifyContent: 'center',
-    alignItems: 'center'
+    alignSelf: "flex-end",
+    justifyContent: "center",
+    alignItems: "center"
   },
   submitBtnText: {
     color: white,
     fontSize: 22,
-    textAlign: 'center'
+    textAlign: "center"
   },
   center: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginLeft: 30,
     marginRight: 30
   }
